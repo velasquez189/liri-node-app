@@ -9,16 +9,14 @@ var client = new Twitter(keys.twitter);
 
 var burden = process.argv[2];
 var userRequest = process.argv[3];
-console.log(`${burden} ${userRequest}`);
-
 
 switch (burden) {
     case "my-tweets":
         myTweets();
         break;
-    // case "spotify-this-song":
-    //     spotifyThisSong();
-    //     break;
+    case "spotify-this-song":
+        spotifyThisSong();
+        break;
     // case "movie-this":
     //     movieThis();
     //     break;
@@ -51,6 +49,54 @@ function myTweets() {
     });
 }
 
-// function spotifyThisSong() {
+function spotifyThisSong() {
+    if (!userRequest) {
+        spotify.search({ type: 'track', query: "The Sign Ace of Base" }, function (err, data) {
+          
+          
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
 
-// }
+            console.log("\nArtist: " + data.tracks.items[0].artists[0].name);
+            console.log("Song: " + data.tracks.items[0].name);
+            console.log("Preview Link: " + data.tracks.items[0].external_urls.spotify);
+            console.log("Album: " + data.tracks.items[0].album.name);
+
+
+
+        })
+    } else {
+        spotify.search({ type: 'track', query: userRequest }, function (err, data) {
+           
+           
+           
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
+
+            console.log("\nArtist: " + data.tracks.items[0].artists[0].name);
+            console.log("Song: " + data.tracks.items[0].name);
+            console.log("Preview Link: " + data.tracks.items[0].external_urls.spotify);
+            console.log("Album: " + data.tracks.items[0].album.name);
+        });
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
